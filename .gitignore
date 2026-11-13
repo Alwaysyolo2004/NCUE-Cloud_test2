@@ -218,3 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# =====================================
+# Project Specific (NCUE Portal & RAG)
+# =====================================
+portal.db
+chroma_db/
