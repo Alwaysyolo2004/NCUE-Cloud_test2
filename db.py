@@ -97,7 +97,8 @@ def update_user_password(username: str, password_hash: str):
                SET password_hash = ?, must_change_password = 0 
                WHERE username = ?""",
             (password_hash, username),
-        )"""update password for naccount"""
+        )
+
 
 def get_user(username: str):
     with _conn() as c:
@@ -112,8 +113,7 @@ def upsert_user(username: str, password_hash: str, role: str, name: str, must_ch
                ON CONFLICT(username) DO UPDATE SET password_hash = excluded.password_hash,
                role = excluded.role, name = excluded.name, must_change_password = excluded.must_change_password""",
             (username, password_hash, role, name, must_change_password),
-        )"""fitur change passord utk new account """
-
+        )
 
 def list_users():
     with _conn() as c:
