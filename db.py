@@ -18,38 +18,38 @@ CREATE TABLE IF NOT EXISTS users (
     username      TEXT PRIMARY KEY,
     password_hash TEXT NOT NULL,
     role          TEXT NOT NULL CHECK (role IN ('Student', 'Professor')),
-    name          TEXT NOT NULL
-    must_change_password INTEGER NOT NULL DEFAULT 0 """for changing new password acc"""
+    name          TEXT NOT NULL,
+    must_change_password INTEGER NOT NULL DEFAULT 0
 );
 CREATE TABLE IF NOT EXISTS queries (
-    id           INTEGER PRIMARY KEY AUTOINCREMENT,
-    ts           TEXT NOT NULL,
-    course       TEXT NOT NULL,
-    query        TEXT NOT NULL,
-    norm_query   TEXT NOT NULL,
-    owner        TEXT NOT NULL,
-    is_anonymous INTEGER NOT NULL,
-    source       TEXT NOT NULL      -- professor / handout / general / error
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    ts            TEXT NOT NULL,
+    course        TEXT NOT NULL,
+    query         TEXT NOT NULL,
+    norm_query    TEXT NOT NULL,
+    owner         TEXT NOT NULL,
+    is_anonymous  INTEGER NOT NULL,
+    source        TEXT NOT NULL       -- professor / handout / general / error
 );
 CREATE INDEX IF NOT EXISTS idx_queries_course ON queries(course);
 CREATE TABLE IF NOT EXISTS direct_questions (
-    id             INTEGER PRIMARY KEY AUTOINCREMENT,
-    ts             TEXT NOT NULL,
-    course         TEXT NOT NULL,
-    owner          TEXT NOT NULL,
-    is_anonymous   INTEGER NOT NULL,
-    question       TEXT NOT NULL,
-    answer         TEXT NOT NULL DEFAULT '',
-    status         TEXT NOT NULL DEFAULT 'Pending',
-    is_highlighted INTEGER NOT NULL DEFAULT 0,
-    answered_ts    TEXT
+    id               INTEGER PRIMARY KEY AUTOINCREMENT,
+    ts               TEXT NOT NULL,
+    course           TEXT NOT NULL,
+    owner            TEXT NOT NULL,
+    is_anonymous     INTEGER NOT NULL,
+    question         TEXT NOT NULL,
+    answer           TEXT NOT NULL DEFAULT '',
+    status           TEXT NOT NULL DEFAULT 'Pending',
+    is_highlighted   INTEGER NOT NULL DEFAULT 0,
+    answered_ts      TEXT
 );
 CREATE TABLE IF NOT EXISTS verified_answers (
-    id      INTEGER PRIMARY KEY AUTOINCREMENT,
-    course  TEXT NOT NULL,          -- 'All Courses' = 全課程通用
-    keyword TEXT NOT NULL,
-    answer  TEXT NOT NULL,
-    ts      TEXT NOT NULL,
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    course    TEXT NOT NULL,          -- 'All Courses' = 全課程通用
+    keyword   TEXT NOT NULL,
+    answer    TEXT NOT NULL,
+    ts        TEXT NOT NULL,
     UNIQUE (course, keyword)
 );
 """
